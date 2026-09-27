@@ -159,8 +159,10 @@ not need to clone it or configure Git yourself.
 > of the folders. Add `.github/copilot-instructions.md` telling Copilot to
 > follow this structure, keep task progress current, protect secrets, ask
 > before destructive or costly actions, and use one session per active task.
-> Keep the wording short and beginner-friendly. Show me the plan before making
-> changes.
+> For a ready AIC task, launch its dedicated session in Autopilot with Allow
+> all, work through every acceptance criterion without routine check-ins, and
+> stop only for a real blocker or an action that requires my approval. Keep the
+> wording short and beginner-friendly. Show me the plan before making changes.
 
 5. Read the plan. If it matches the request, approve it.
 6. Let the agent finish, then select **Changes** above the prompt box.
@@ -188,6 +190,9 @@ Open the file in the App or on GitHub and check that it covers these rules:
 - Keep one self-contained `AIC-*.md` document for each task.
 - Update a task's status, dated progress, decisions, blockers, and results.
 - Use a separate session for each active task.
+- Run a ready AIC task in Autopilot with **Allow all** and continue until every
+  acceptance criterion is complete, asking only about real blockers or
+  protected actions.
 - Never store secrets in files or commits.
 - Ask before deleting important files, spending money, publishing private
   information, or taking another hard-to-reverse action.
@@ -267,6 +272,37 @@ Start with **Plan** mode for unfamiliar, broad, or risky work. Use
 **Interactive** when you expect to make decisions together. Use **Autopilot**
 only when the task is clear, bounded, and safe enough for the agent to proceed
 without waiting at each step.
+
+### 6.4 Default AIC mode: finish with minimal interaction
+
+Once you have reviewed a ready task brief, the normal AIC workflow is designed
+to need as little attention as possible:
+
+1. Start one dedicated session in a **new working tree**.
+2. Select **Autopilot** so the agent can keep working through multiple steps.
+3. Select **Allow all** for that session when the App asks how agent tool
+   approvals should work.
+4. Prefer a cloud sandbox, or enable local sandboxing, when the task does not
+   need unrestricted access to your computer.
+5. Tell the agent to continue until every acceptance criterion is verified,
+   the task document is complete, and a pull request is created.
+
+**Allow all** removes routine approval prompts; it does not remove your safety
+rules. The agent must still stop for missing information that it cannot infer,
+secrets, purchases, publishing private information, destructive changes
+outside the task, or another action that the task brief reserves for you.
+
+Use this standard request:
+
+> Run this ready AIC task in Autopilot with minimal operator interaction.
+> Continue until all acceptance criteria are verified and the pull request is
+> ready. Make reasonable low-risk decisions yourself and record them in the
+> task document. Contact me only for a genuine blocker or an explicitly
+> protected action.
+
+Use **Plan** or **Interactive** instead when the task is still vague, has a wide
+or uncertain impact, handles sensitive material, or could cause an expensive
+or hard-to-reverse result.
 
 ---
 
@@ -388,6 +424,8 @@ history.
 - [ ] Risky work starts in **Plan** or **Interactive** mode.
 - [ ] Local or cloud sandboxing is used when appropriate and available.
 - [ ] Each active task has one task brief and one dedicated session.
+- [ ] Ready, bounded AIC tasks use **Autopilot** and **Allow all** for minimal
+      routine interaction.
 - [ ] Important decisions and progress are written to files, not left only in
       chat history.
 - [ ] Every PR is reviewed for unexpected or destructive changes.

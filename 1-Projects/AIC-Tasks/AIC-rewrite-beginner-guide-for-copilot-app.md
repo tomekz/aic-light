@@ -133,6 +133,9 @@ needed.
   parallel task tracking with the repository's `AIC-*.md` convention.
 - 2026-09-27 - Completed editorial, stale-CLI, Markdown-structure, repository
   reference, and external-link checks; all acceptance criteria passed.
+- 2026-09-27 - Added the requested low-interaction AIC default: dedicated
+  sessions use Autopilot with Allow all and continue to verified completion,
+  while retaining explicit safety stop conditions.
 
 ## Open questions
 
@@ -147,7 +150,8 @@ Complete this section before closing the task:
   GUI-first GitHub Copilot App workflow for non-technical users.
 - **Changes:** Rewrote setup, private repository creation, durable
   instructions, AIC task briefs, parallel sessions, review, pause/resume,
-  completion, and safety guidance. Updated the root README description.
+  low-interaction Autopilot execution, completion, and safety guidance. Updated
+  the repository instructions and root README description.
 - **Validation:** Checked all acceptance criteria, searched for stale CLI and
   terminal instructions, verified Markdown structure and whitespace, reviewed
   the complete diff, and checked every external link. All documentation links
