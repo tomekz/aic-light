@@ -2,7 +2,7 @@
 
 ## Task metadata
 
-- **Status:** ready
+- **Status:** done
 - **Owner:** Unassigned
 - **Created:** 2026-09-27
 - **Last updated:** 2026-09-27
@@ -51,23 +51,23 @@ from Git when executing the task so newly added or moved files are included.
 
 ## Requirements / acceptance criteria
 
-- [ ] Every Markdown file reported by `git ls-files "*.md"` is included in the
+- [x] Every Markdown file reported by `git ls-files "*.md"` is included in the
   review, and the final documentation records the file count and reviewed
   paths.
-- [ ] Every repository-local Markdown link and image destination in those files
+- [x] Every repository-local Markdown link and image destination in those files
   is checked for an existing file or directory; any fragment is checked against
   the destination document.
-- [ ] Each broken link is documented with its source path, line number, literal
+- [x] Each broken link is documented with its source path, line number, literal
   destination, and a concise failure reason, with duplicate occurrences
   retained when they occur at different locations.
-- [ ] The final documentation distinguishes broken links from links that could
+- [x] The final documentation distinguishes broken links from links that could
   not be conclusively validated, and records any limitations or ambiguities.
-- [ ] The review method is reproducible and includes the commands or script
+- [x] The review method is reproducible and includes the commands or script
   used; any temporary audit tooling is removed before completion unless it is
   intentionally retained and documented.
-- [ ] **Status / progress** and **Handoff / results** contain dated evidence of
+- [x] **Status / progress** and **Handoff / results** contain dated evidence of
   the completed review, and the task status is set to `done`.
-- [ ] The final repository diff is limited to this task document and any
+- [x] The final repository diff is limited to this task document and any
   clearly justified durable results artifact.
 
 ## Relevant files / links
@@ -105,6 +105,15 @@ from Git when executing the task so newly added or moved files are included.
 ## Status / progress
 
 - 2026-09-27 - Task created and marked ready for independent execution.
+- 2026-09-27 - Enumerated all 10 tracked Markdown files with
+  `git ls-files "*.md"` and reviewed every file as a link source.
+- 2026-09-27 - Checked all 9 repository-local link occurrences with a
+  dependency-free PowerShell audit, including relative file and directory
+  resolution, URL decoding, repository-boundary checks, and GitHub-style
+  heading-fragment validation.
+- 2026-09-27 - Completed a separate syntax scan for inline links, reference
+  definitions and uses, autolinks, and HTML `href`/`src` attributes. No broken
+  or inconclusive repository-local links were found.
 
 ## Open questions
 
@@ -112,9 +121,72 @@ from Git when executing the task so newly added or moved files are included.
 
 ## Handoff / results
 
-Complete this section before closing the task:
+- **Outcome:** Reviewed all 10 tracked Markdown files and all 9
+  repository-local link occurrences. No broken links and no inconclusive links
+  were found.
+- **Changes:** Updated this task document only; no repository content links
+  required changes and no durable audit artifact was necessary.
+- **Validation:** The reviewed paths were:
+  - `.github/copilot-instructions.md`
+  - `1-Projects/AIC-Tasks/AIC-TEMPLATE.md`
+  - `1-Projects/AIC-Tasks/AIC-review-local-links.md`
+  - `1-Projects/AIC-Tasks/README.md`
+  - `1-Projects/README.md`
+  - `2-Areas/README.md`
+  - `3-Resources/README.md`
+  - `3-Resources/aic-lite-beginner-guide.md`
+  - `4-Archives/README.md`
+  - `README.md`
 
-- **Outcome:** Pending.
-- **Changes:** Pending.
-- **Validation:** Pending.
-- **Remaining work:** Pending.
+  The valid local destinations checked were:
+
+  | Source | Line | Literal destination |
+  | --- | ---: | --- |
+  | `1-Projects/AIC-Tasks/README.md` | 8 | `AIC-TEMPLATE.md` |
+  | `1-Projects/README.md` | 6 | `AIC-Tasks/` |
+  | `README.md` | 10 | `1-Projects/` |
+  | `README.md` | 11 | `2-Areas/` |
+  | `README.md` | 12 | `3-Resources/` |
+  | `README.md` | 13 | `4-Archives/` |
+  | `README.md` | 21 | `1-Projects/AIC-Tasks/` |
+  | `README.md` | 30 | `1-Projects/AIC-Tasks/` |
+  | `README.md` | 36 | `3-Resources/aic-lite-beginner-guide.md` |
+
+  Reproduction method:
+
+  1. Run `git ls-files "*.md"` to establish the complete source set.
+  2. Scan those files outside fenced and inline code for inline links and
+     images, reference definitions and uses, `file:` autolinks, and HTML
+     `href`/`src` attributes.
+  3. Ignore destinations with non-local schemes. For local destinations, strip
+     query strings, URL-decode paths and fragments, resolve relative paths from
+     the source file and leading-slash paths from the repository root, reject
+     paths outside the repository, and check the resulting path with
+     `Test-Path -LiteralPath`.
+  4. For a Markdown destination with a fragment, derive GitHub-style heading
+     slugs, including numeric suffixes for duplicates, and require a matching
+     slug.
+  5. Retain source path, one-based line number, and literal destination for
+     every occurrence. The temporary PowerShell audit script used for these
+     steps was removed after the results were recorded.
+
+  A separate extraction check used:
+
+  ```powershell
+  rg -n '!?\\[[^\\]]*\\]\\([^\\)]*\\)' -g '*.md'
+  rg -n '^\\s*\\[[^\\]]+\\]:\\s*\\S+' -g '*.md'
+  rg -n '<(?:[^ >]+@[^ >]+|(?:https?|file):[^ >]+)>' -g '*.md'
+  rg -n '(?:href|src)\\s*=\\s*["''][^"'']+["'']' -g '*.md'
+  ```
+
+  **Broken links:** None.
+
+  **Inconclusive links:** None.
+
+  **Limitations / ambiguities:** External destinations were intentionally not
+  tested. The repository contains no local reference-style links, local
+  autolinks, linked images, HTML link attributes, URL-encoded local paths, or
+  local heading fragments, so those syntax classes had no occurrences to
+  validate against the filesystem. Markdown examples inside fenced or inline
+  code were treated as code rather than navigational links.
+- **Remaining work:** None.
