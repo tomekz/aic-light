@@ -2,7 +2,7 @@
 
 ## Task metadata
 
-- **Status:** ready
+- **Status:** done
 - **Owner:** Unassigned
 - **Created:** 2026-09-27
 - **Last updated:** 2026-09-27
@@ -61,31 +61,31 @@ needed.
 
 ## Requirements / acceptance criteria
 
-- [ ] `3-Resources/aic-lite-beginner-guide.md` consistently presents the GitHub
+- [x] `3-Resources/aic-lite-beginner-guide.md` consistently presents the GitHub
       Copilot App window as the primary interface.
-- [ ] A beginner can follow the guide without installing Copilot CLI, Node.js,
+- [x] A beginner can follow the guide without installing Copilot CLI, Node.js,
       GitHub CLI, or learning terminal commands.
-- [ ] Every remaining terminal or command-line step is removed, replaced with
+- [x] Every remaining terminal or command-line step is removed, replaced with
       a GUI alternative, or explicitly identified as optional and unnecessary
       for the main workflow.
-- [ ] The end-to-end workflow is internally consistent: account and plan,
+- [x] The end-to-end workflow is internally consistent: account and plan,
       app/project setup, private second brain, durable instructions, task
       creation, parallel sessions, progress review, pause/resume, and safe
       completion all use compatible GUI concepts.
-- [ ] References to terminal tabs, CLI slash/bang commands, direct shell paths,
+- [x] References to terminal tabs, CLI slash/bang commands, direct shell paths,
       manual `git` commands, and CLI-only configuration locations are removed
       unless retained in a clearly labeled optional advanced note.
-- [ ] The revised guide uses short steps, plain language, and explains any
+- [x] The revised guide uses short steps, plain language, and explains any
       unavoidable GitHub, repository, project, session, branch, worktree, or
       pull-request terminology before relying on it.
-- [ ] Security guidance remains prominent: use 2FA, keep the second brain
+- [x] Security guidance remains prominent: use 2FA, keep the second brain
       private, never store secrets, and review risky or destructive actions.
-- [ ] Claims about the GitHub Copilot App UI and capabilities are checked
+- [x] Claims about the GitHub Copilot App UI and capabilities are checked
       against current official documentation; uncertain UI details are not
       invented.
-- [ ] Directly related repository references are checked and updated where
+- [x] Directly related repository references are checked and updated where
       needed.
-- [ ] Perform a final editorial review for broken links, stale CLI assumptions,
+- [x] Perform a final editorial review for broken links, stale CLI assumptions,
       contradictions, spelling, readability, and complete Markdown structure.
 
 ## Relevant files / links
@@ -126,18 +126,31 @@ needed.
 ## Status / progress
 
 - 2026-09-27 - Task created and marked ready for a dedicated Copilot session.
+- 2026-09-27 - Verified the current Copilot App project, session, mode,
+  Changes/PR, My work, and isolated-worktree workflows against official GitHub
+  documentation.
+- 2026-09-27 - Rewrote the guide around a GUI-only primary workflow and aligned
+  parallel task tracking with the repository's `AIC-*.md` convention.
+- 2026-09-27 - Completed editorial, stale-CLI, Markdown-structure, repository
+  reference, and external-link checks; all acceptance criteria passed.
 
 ## Open questions
 
-- The exact GitHub Copilot App UI may vary by version or account rollout. This
-  does not block the task; rely on current official documentation and avoid
-  unsupported precision.
+- None. The guide links to current official documentation and tells readers to
+  follow the documented concepts when minor labels or positions change.
 
 ## Handoff / results
 
 Complete this section before closing the task:
 
-- **Outcome:** Pending.
-- **Changes:** Pending.
-- **Validation:** Pending.
-- **Remaining work:** Pending.
+- **Outcome:** Replaced the terminal-first beginner guide with a complete,
+  GUI-first GitHub Copilot App workflow for non-technical users.
+- **Changes:** Rewrote setup, private repository creation, durable
+  instructions, AIC task briefs, parallel sessions, review, pause/resume,
+  completion, and safety guidance. Updated the root README description.
+- **Validation:** Checked all acceptance criteria, searched for stale CLI and
+  terminal instructions, verified Markdown structure and whitespace, reviewed
+  the complete diff, and checked every external link. All documentation links
+  returned HTTP 200; `github.com/signup` returned HTTP 403 to the automated
+  link checker but remains the official browser signup URL.
+- **Remaining work:** None.
