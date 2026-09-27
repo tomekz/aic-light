@@ -29,3 +29,9 @@ Use lowercase kebab-case for `<short-task-name>`, for example
 `AIC-review-backup-plan.md`. See the
 [AIC task guide](1-Projects/AIC-Tasks/) for the creation and parallel-chat
 workflow.
+
+## Setup guide
+
+New here? Start with the
+[AIC-Lite beginner setup guide](3-Resources/aic-lite-beginner-guide.md):
+GitHub account, Copilot plan, second brain, instructions and manual multi-agent tracking.
