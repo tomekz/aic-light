@@ -142,6 +142,8 @@ needed.
   and replication guide while preserving setup, workflow, and safety details.
 - 2026-09-27 - Enabled the repository as a GitHub template and changed the
   setup path to create a ready private copy with **Use this template**.
+- 2026-09-27 - Added a non-technical introduction explaining the system as a
+  shared notebook plus a team of task-focused assistants.
 
 ## Open questions
 
