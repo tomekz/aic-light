@@ -11,12 +11,12 @@ Allowed status values: `draft`, `ready`, `in-progress`, `blocked`, `done`.
 
 ## Objective
 
-Deliver a practical, self-contained two-day family itinerary for Kraków whose
+Deliver a practical, self-contained four-day family itinerary for Kraków whose
 total planned cost does not exceed EUR 300.
 
 ## Background / context
 
-The traveler needs a clear two-day plan that can be followed without context
+The traveler needs a clear four-day plan that can be followed without context
 from another session. It must combine family-friendly sightseeing with
 realistic food and local transport allowances, state the assumptions behind
 the budget, and preserve money for contingencies. The durable trip plan belongs
@@ -24,7 +24,7 @@ in the repository's reusable resources.
 
 ## Scope
 
-- Plan two full sightseeing days in Kraków for a family.
+- Plan four full sightseeing days in Kraków for a family.
 - Provide a time-based itinerary with family-friendly sights and activities.
 - Estimate meals, local public transport, and attraction costs by day.
 - Summarize costs by category and show the conversion to euros.
@@ -43,7 +43,7 @@ in the repository's reusable resources.
 
 ## Requirements / acceptance criteria
 
-- [x] A two-day itinerary gives practical times, family-friendly activities,
+- [x] A four-day itinerary gives practical times, family-friendly activities,
   meal stops, and travel or rest guidance for both days.
 - [x] Assumptions explicitly cover family size, children's ages, lodging,
   inbound travel, exchange rate, reduced fares, and changing prices.
@@ -74,9 +74,9 @@ in the repository's reusable resources.
   EUR 1 = PLN 4.25; prices are allowances and must be rechecked before travel.
 - The representative family is two adults and two children aged 7-15.
 - Accommodation and inbound/outbound travel are excluded so the limited budget
-  can support two realistic sightseeing days.
-- The itinerary uses mostly free central sights and one principal paid
-  attraction per day.
+  can support four realistic sightseeing days.
+- The itinerary uses mostly free sights, two paid attractions across four
+  days, self-catered breakfasts, packed lunches, and inexpensive hot dinners.
 - This task is executed wholly within its dedicated worktree and branch.
 
 ## Dependencies
@@ -93,6 +93,12 @@ None.
 - 2026-09-27 - Verified required files and itinerary sections; reconciled day
   and category totals; confirmed EUR 292.94 total and EUR 7.06 headroom.
 - 2026-09-27 - All acceptance criteria completed and task set to `done`.
+- 2026-09-27 - Scope changed from two to four full sightseeing days; task
+  reopened and set to `in-progress`.
+- 2026-09-27 - Itinerary expanded with dedicated Wawel/Kazimierz, aviation
+  museum, and Nowa Huta days while retaining the EUR 300 ceiling.
+- 2026-09-27 - Verified four distinct day sections, reconciled daily and
+  category totals, confirmed EUR 292.94 total, and set the task to `done`.
 
 ## Open questions
 
@@ -100,13 +106,14 @@ No open questions.
 
 ## Handoff / results
 
-- **Outcome:** Delivered a practical, budget-capped two-day Kraków itinerary
+- **Outcome:** Delivered a practical, budget-capped four-day Kraków itinerary
   for two adults and two children.
-- **Changes:** Created
-  `3-Resources/Travel/Krakow-family-trip.md` and this complete AIC task record.
-- **Validation:** Confirmed both files and all required itinerary sections are
-  present; `git diff --check` passed; independently recalculated PLN 680 food +
-  PLN 270 activities + PLN 105 transport + PLN 190 contingency = PLN 1,245,
-  which is EUR 292.94 at PLN 4.25/EUR and EUR 7.06 below the cap. Day totals
-  also reconcile to the non-contingency category subtotal.
+- **Changes:** Expanded `3-Resources/Travel/Krakow-family-trip.md` from two to
+  four full days and updated this AIC task record to reflect the revised scope.
+- **Validation:** Confirmed exactly four day sections and all required
+  itinerary sections are present; `git diff --check` passed; independently
+  reconciled daily totals of PLN 337 + PLN 226 + PLN 326 + PLN 226 =
+  PLN 1,115 with category totals of PLN 800 food + PLN 210 activities +
+  PLN 105 transport; adding PLN 130 contingency produces PLN 1,245, or
+  EUR 292.94 at PLN 4.25/EUR, leaving EUR 7.06 below the cap.
 - **Remaining work:** None.
