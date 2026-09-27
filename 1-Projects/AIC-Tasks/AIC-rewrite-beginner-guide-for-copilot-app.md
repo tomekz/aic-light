@@ -146,6 +146,8 @@ needed.
   shared notebook plus a team of task-focused assistants.
 - 2026-09-27 - Added mandatory AIC lifecycle and completion gates after a demo
   agent created output without a task record, commit, or pull request.
+- 2026-09-27 - Added the reusable `.github/skills/aic-task/SKILL.md` project
+  skill so users only describe tasks and the full lifecycle runs implicitly.
 
 ## Open questions
 

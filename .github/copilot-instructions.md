@@ -6,10 +6,13 @@ guidance in the root `README.md`.
 ## Starting an AIC task
 
 When the user asks to "start a new AIC task", "create an AIC task", or uses
-equivalent wording, treat it as a request to create and launch a self-contained
-parallel task. **AIC is a required lifecycle, not merely a label or a suggested
-file location. Do not skip any lifecycle step even when the requested output
-itself is simple.**
+equivalent wording, always use the repository's `aic-task` skill in
+`.github/skills/aic-task/SKILL.md`. The user only needs to describe the desired
+work; never require them to repeat the lifecycle instructions.
+
+Treat AIC as a required lifecycle, not merely a label or a suggested file
+location. Do not skip any lifecycle step even when the requested output itself
+is simple.
 
 If one request contains multiple independent AIC tasks, split it into one
 `AIC-*.md` document and one dedicated session per task. Create and commit each

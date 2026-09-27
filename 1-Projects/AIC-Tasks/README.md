@@ -3,6 +3,11 @@
 This folder contains personal task briefs designed to serve as complete context
 for independent, parallel Copilot chats.
 
+The project skill at [`.github/skills/aic-task/SKILL.md`](../../.github/skills/aic-task/SKILL.md)
+automatically applies this workflow when the user asks to start or run AIC
+tasks. The user only describes the work; the skill handles task records,
+dedicated sessions, progress, commits, and pull requests.
+
 ## Create a task
 
 1. Copy [`AIC-TEMPLATE.md`](AIC-TEMPLATE.md) in this folder.

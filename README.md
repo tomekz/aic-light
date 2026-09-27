@@ -66,6 +66,7 @@ This second brain uses the [PARA method](https://fortelabs.com/blog/para/):
 | [`3-Resources/`](3-Resources/) | Reusable notes and reference material |
 | [`4-Archives/`](4-Archives/) | Finished or inactive material worth keeping |
 | [`.github/copilot-instructions.md`](.github/copilot-instructions.md) | Permanent rules that guide Copilot in this repository |
+| [`.github/skills/aic-task/`](.github/skills/aic-task/) | Automatic create, launch, track, commit, and PR workflow for AIC tasks |
 
 ---
 
@@ -165,14 +166,13 @@ Copilot should:
 
 Creating only the requested note or checklist is **not** a completed AIC task.
 The task record, verified acceptance criteria, commit, and PR are mandatory.
+The built-in `aic-task` skill handles these steps automatically; you should not
+have to include them in your request.
 
 For two parallel tasks, you can say:
 
-> Start two separate AIC tasks: plan a two-day family trip to Kraków with a
-> EUR 300 budget, and create a household subscription-review checklist. Create
-> and commit one AIC task brief for each, launch one dedicated Autopilot session
-> per task, and verify that each session updates its task record, commits its
-> changes, and creates a pull request before reporting completion.
+> Start two separate AIC tasks: create a weekly meal-planning template for a
+> family of four, and create a beginner guide for organizing digital photos.
 
 ### Let a ready task run
 
@@ -273,6 +273,7 @@ If an agent reports success without an AIC task file, commit, or PR, reply:
 - [Working with agent sessions](https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions)
 - [Managing issues and pull requests](https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests)
 - [Adding repository instructions](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions)
+- [Adding agent skills](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills)
 - [Creating a GitHub repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository)
 - [Configuring two-factor authentication](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication)
 
