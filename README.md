@@ -6,7 +6,7 @@ This repository is two things in one:
 2. A **working second brain** that stores notes, task plans, progress, and
    results between agent sessions.
 
-You can use this repository as a model to build the same system with your own
+Use this repository as a template to create your own ready-made copy with a
 Windows computer and GitHub account. You do not need to know terminal commands
 or install Copilot CLI, Node.js, or GitHub CLI.
 
@@ -75,14 +75,17 @@ for current features, prices, and limits.
 5. Open the App and select **Sign in to GitHub**.
 6. Finish sign-in in the browser window that opens.
 
-### 4. Create a private second-brain repository
+### 4. Create your private copy
 
-1. On [GitHub](https://github.com), select the **+** menu in the upper-right.
-2. Select **New repository**.
-3. Name it `second-brain`.
-4. Choose **Private**.
-5. Select **Add a README file**.
+1. Open this template repository on GitHub.
+2. Select **Use this template**, then **Create a new repository**.
+3. Choose your personal GitHub account as the owner.
+4. Name the new repository `second-brain`.
+5. Choose **Private**.
 6. Select **Create repository**.
+
+If you cannot see **Use this template**, confirm that you are signed in and
+that the template owner has given your account access to this repository.
 
 Keep the repository private. Never save passwords, API keys, access tokens,
 recovery codes, payment-card details, or other secrets in it.
@@ -97,33 +100,18 @@ recovery codes, payment-card details, or other secrets in it.
 
 The App downloads and manages the repository for you.
 
-### 6. Ask Copilot to build the second brain
+### 6. Confirm that it is ready
 
 1. Select **+** next to the new project.
 2. Choose a **new working tree**.
-3. Choose **Plan** mode.
-4. Paste this request:
+3. Choose **Interactive** mode.
+4. Ask:
 
-> Set up this repository as an AIC-Lite second brain for a non-technical user.
-> Create the PARA folders `1-Projects`, `2-Areas`, `3-Resources`, and
-> `4-Archives`. Inside `1-Projects`, create `AIC-Tasks/README.md` and
-> `AIC-Tasks/AIC-TEMPLATE.md`. The template must include metadata, objective,
-> context, scope, non-goals, acceptance criteria, relevant links, constraints,
-> dependencies, dated progress, open questions, and handoff/results. Create
-> `.github/copilot-instructions.md` with the rules below. Update the root
-> README with a short folder map. Show me the plan before changing files.
->
-> Rules: use one dedicated session per AIC task; keep each task file current;
-> launch ready tasks in Autopilot with Allow all; work until every acceptance
-> criterion is verified; create a pull request for my review; ask only about
-> real blockers or protected actions; never store secrets; ask before spending
-> money, publishing private information, or making destructive changes outside
-> the task.
+> Explain this second brain and confirm that the AIC task template and Copilot
+> instructions are ready. Do not change any files.
 
-5. Read the plan and approve it if it matches the request.
-6. When Copilot finishes, select **Changes** and review the files.
-7. Select **Create PR**.
-8. Review the PR and merge it.
+5. Confirm that Copilot describes the PARA folders, `AIC-Tasks`, and the
+   repository instructions.
 
 Your second brain is now ready.
 

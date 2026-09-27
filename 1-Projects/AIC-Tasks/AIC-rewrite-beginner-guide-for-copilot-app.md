@@ -140,6 +140,8 @@ needed.
   setup guide into the root README, removing the duplicate resource page.
 - 2026-09-27 - Simplified the README into a shorter single-page explanation
   and replication guide while preserving setup, workflow, and safety details.
+- 2026-09-27 - Enabled the repository as a GitHub template and changed the
+  setup path to create a ready private copy with **Use this template**.
 
 ## Open questions
 
