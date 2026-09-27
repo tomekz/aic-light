@@ -61,7 +61,7 @@ needed.
 
 ## Requirements / acceptance criteria
 
-- [x] `3-Resources/aic-lite-beginner-guide.md` consistently presents the GitHub
+- [x] `README.md` consistently presents the GitHub
       Copilot App window as the primary interface.
 - [x] A beginner can follow the guide without installing Copilot CLI, Node.js,
       GitHub CLI, or learning terminal commands.
@@ -90,13 +90,13 @@ needed.
 
 ## Relevant files / links
 
-- `3-Resources/aic-lite-beginner-guide.md` - primary guide to review and rewrite.
+- `README.md` - primary guide, consolidated at the repository entry point.
 - `README.md` - links to and summarizes the beginner guide.
 - `1-Projects/AIC-Tasks/README.md` - repository's current parallel AIC task
   workflow and terminology.
 - `.github/copilot-instructions.md` - inspect only if useful for accurately
   explaining repository-level instructions.
-- https://springtime-technologies.ghe.com/tomasz-zadrozny/aic-light/blob/main/3-Resources/aic-lite-beginner-guide.md
+- https://springtime-technologies.ghe.com/tomasz-zadrozny/aic-light/blob/main/README.md
   - user-provided link to the current guide.
 - Official GitHub and GitHub Copilot documentation - authoritative source for
   current GUI behavior and terminology.
@@ -136,6 +136,8 @@ needed.
 - 2026-09-27 - Added the requested low-interaction AIC default: dedicated
   sessions use Autopilot with Allow all and continue to verified completion,
   while retaining explicit safety stop conditions.
+- 2026-09-27 - Consolidated the second-brain explanation and complete Windows
+  setup guide into the root README, removing the duplicate resource page.
 
 ## Open questions
 
@@ -151,7 +153,8 @@ Complete this section before closing the task:
 - **Changes:** Rewrote setup, private repository creation, durable
   instructions, AIC task briefs, parallel sessions, review, pause/resume,
   low-interaction Autopilot execution, completion, and safety guidance. Updated
-  the repository instructions and root README description.
+  the repository instructions and consolidated the complete guide into the
+  root README.
 - **Validation:** Checked all acceptance criteria, searched for stale CLI and
   terminal instructions, verified Markdown structure and whitespace, reviewed
   the complete diff, and checked every external link. All documentation links
