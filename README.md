@@ -34,4 +34,5 @@ workflow.
 
 New here? Start with the
 [AIC-Lite beginner setup guide](3-Resources/aic-lite-beginner-guide.md):
-GitHub account, Copilot plan, second brain, instructions and manual multi-agent tracking.
+use the GitHub Copilot App to create a private second brain, add durable
+instructions, and manage parallel tasks without terminal commands.

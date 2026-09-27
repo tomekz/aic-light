@@ -1,324 +1,452 @@
-# AIC-Lite: Your Own AI Assistant Setup (Beginner Guide)
+# AIC-Lite: Your AI Assistant in the GitHub Copilot App
 
-A lightweight version of our "AI Champion" setup. You don't need an orchestrator.
-You run the AI agents yourself. Three things make this work:
+This guide shows you how to build and use a private "second brain" with the
+GitHub Copilot App. The App is a desktop program where you can give tasks to AI
+agents, watch their progress, review their changes, and keep several tasks
+moving at once.
 
-1. **Copilot instructions**: fixed rules the AI reads every time it starts.
-2. **Second brain**: a private GitHub repo of notes, so the AI remembers things between sessions.
-3. **Work board**: one file that tracks what each agent is working on, so you can run 2-3 at once.
+You do not need to know terminal commands. You do not need Copilot CLI,
+Node.js, or GitHub CLI. The App handles the technical Git work for you.
 
-Setup takes about 1-2 hours. You don't need any git knowledge before you start.
+Setup takes about one hour. Afterward, your system has three parts:
 
----
+1. **Durable instructions** tell Copilot how to work in your repository.
+2. **A private second brain** stores notes and task history between sessions.
+3. **One session per task** lets agents work in parallel without mixing their
+   changes.
 
-## Part 1 - Accounts and plan (about 20 min)
-
-### 1.1 Create a GitHub account
-1. Go to https://github.com/signup and sign up. Use a username you're happy to keep.
-2. Verify your email.
-3. **Turn on two-factor authentication (2FA)**: Settings → Password and authentication →
-   Enable 2FA. Use an authenticator app. Save the recovery codes in your password manager.
-
-### 1.2 Buy a Copilot plan
-1. Go to https://github.com/features/copilot/plans.
-2. **Recommended: Copilot Pro+.** This is the top individual tier. It gives you the
-   frontier models (the strongest Claude, GPT and Gemini models) and the most premium
-   requests. Copilot Pro is cheaper but has fewer premium requests and fewer models.
-   Check the page for current prices and limits.
-3. After you buy, open https://github.com/settings/copilot and make sure the models you
-   want are **enabled**. Some are off by default.
+> [!NOTE]
+> GitHub currently requires Git to be installed before you use the Copilot App.
+> You do not have to learn Git commands. Install it once when the App's setup
+> guide asks you to, then continue in the graphical interface.
 
 ---
 
-## Part 2 - Install the tools (about 30 min)
+## Part 1 - Learn the five words you need
 
-Install these on your computer. macOS, Windows or Linux all work.
+| Word | Plain-language meaning |
+| --- | --- |
+| **Repository** | A folder whose files and history are stored on GitHub. This guide uses one private repository as your second brain. |
+| **Project** | A repository or folder that you connect to the Copilot App. |
+| **Session** | One conversation with an agent, plus a separate workspace for that task. |
+| **Branch** | A safe, separate version of the repository where one session makes changes. |
+| **Pull request (PR)** | A review page that shows proposed changes before you add them to the main version. |
 
-| Tool | Why | Where |
-|------|-----|-------|
-| **Git** | Saves versions of files and syncs them to GitHub | https://git-scm.com/downloads (macOS: run `xcode-select --install`) |
-| **Node.js 22+ (LTS)** | Required by the Copilot CLI | https://nodejs.org |
-| **GitHub CLI (`gh`)** | Signs you in to GitHub from the terminal | https://cli.github.com |
-| **VS Code** (optional, recommended) | Nice way to read and edit your notes | https://code.visualstudio.com |
-| **Copilot CLI** | The AI agent you'll run | See the command below |
-
-Open a terminal. On macOS that's the **Terminal** app. On Windows use **Windows Terminal**.
-Then run these one at a time:
-
-```bash
-# 1. Install the Copilot CLI
-npm install -g @github/copilot
-
-# 2. Tell git who you are (use your GitHub email)
-git config --global user.name  "Your Name"
-git config --global user.email "you@example.com"
-git config --global init.defaultBranch main
-
-# 3. Sign in to GitHub. Pick: GitHub.com → HTTPS → Login with a web browser
-gh auth login
-gh auth setup-git
-
-# 4. Start Copilot once and sign in when it asks
-copilot
-```
-
-In Copilot, type `/login` if it asks you to. Type `/model` to see which models you can use
-and pick a frontier one. Type `/exit` to quit.
+You do not have to create branches or separate working folders yourself. When
+you start sessions in separate working trees, the App gives each session its
+own branch and isolated workspace.
 
 ---
 
-## Part 3 - Git in 5 minutes (only what you need)
+## Part 2 - Create and secure your accounts
 
-Git takes snapshots of a folder. GitHub keeps a copy of those snapshots online.
+### 2.1 Create a GitHub account
 
-| Word | Meaning |
-|------|---------|
-| **repo** | A folder that git tracks |
-| **clone** | Download a repo from GitHub to your computer |
-| **commit** | Save a snapshot of your changes, with a short message |
-| **push** | Upload your commits to GitHub |
-| **pull** | Download the latest changes from GitHub |
+1. Go to [github.com/signup](https://github.com/signup).
+2. Create an account and verify your email address.
+3. Open your profile menu on GitHub, then select **Settings**.
+4. Select **Password and authentication**.
+5. Under **Two-factor authentication**, select
+   **Enable two-factor authentication**.
+6. Use an authenticator app when possible.
+7. Save the recovery codes in a password manager or another secure place.
 
-These four commands cover 95% of what you'll do:
+Two-factor authentication, usually called **2FA**, protects your account even
+if somebody learns your password.
 
-```bash
-git pull                          # get the latest version first
-git add -A                        # stage all your changes
-git commit -m "what I changed"    # take a snapshot
-git push                          # upload it to GitHub
-```
+### 2.2 Choose a Copilot plan
 
-> Tip: you can ask Copilot to do it for you: *"commit and push my notes with a sensible message"*.
+The Copilot App is available with every Copilot plan. Start with the plan that
+matches your expected use:
 
----
+- **Copilot Free** is suitable for trying the workflow with limited usage.
+- **Copilot Pro** gives an individual a larger allowance and a choice of
+  models.
+- **Copilot Pro+** or **Copilot Max** may suit frequent or complex work.
+- An employer may provide **Copilot Business** or **Copilot Enterprise**.
 
-## Part 4 - Create your Second Brain repo (about 20 min)
-
-The AI forgets everything when a session ends. This repo is its long-term memory, and yours.
-
-### 4.1 Create it
-```bash
-cd ~                                   # your home folder
-gh repo create second-brain --private --clone
-cd second-brain
-```
-> ⚠️ Keep it **private**. Never put passwords, API keys or tokens in it.
-
-### 4.2 Folder layout (simple "PARA" style)
-```bash
-mkdir -p 00-Inbox 01-Projects 02-Areas 03-Resources 04-Archive 99-Templates work/tasks
-```
-
-| Folder | What goes in it |
-|--------|-----------------|
-| `00-Inbox/` | Quick notes you haven't sorted yet. Sort them weekly. |
-| `01-Projects/` | Things with an end date (for example `01-Projects/new-laptop-setup/`) |
-| `02-Areas/` | Ongoing responsibilities (for example `02-Areas/home-network/`, `02-Areas/finances/`) |
-| `03-Resources/` | Reference notes, how-tos, snippets, useful links |
-| `04-Archive/` | Finished projects. Move them here instead of deleting them. |
-| `99-Templates/` | Note templates |
-| `work/BOARD.md` | **The work board**: what every agent is doing right now |
-| `work/tasks/` | One file per task (the brief plus a progress log) |
-
-### 4.3 Create the starter files
-
-**`README.md`** (the map the AI reads first):
-```markdown
-# Second Brain
-Personal knowledge base. The AI reads this first.
-
-- Active work: work/BOARD.md
-- Task files: work/tasks/<task-id>.md
-- Notes use lowercase-with-dashes.md names.
-- Every note starts with: Title, Date, Tags, a one-line Summary.
-```
-
-**`99-Templates/task.md`**:
-```markdown
-# T-000 - <short title>
-- Status: todo | doing | blocked | done
-- Agent: <terminal tab name, e.g. A1>
-- Started: YYYY-MM-DD
-- Repo/folder: <where the work happens>
-
-## Goal (what "done" looks like)
-- ...
-
-## Plan
-1. ...
-
-## Log (newest at the bottom, the agent appends here)
-- YYYY-MM-DD HH:MM - started
-
-## Result / lessons learned
-- ...
-```
-
-**`99-Templates/note.md`**:
-```markdown
-# <Title>
-- Date: YYYY-MM-DD
-- Tags: #tag1 #tag2
-- Summary: one line
-
-## Notes
-...
-```
-
-**`work/BOARD.md`**:
-```markdown
-# Work Board
-Keep this short. One row per active task. Move done rows to "Done" weekly.
-
-## Active
-| Task | Title | Agent | Status | Last update | Next step |
-|------|-------|-------|--------|-------------|-----------|
-
-## Waiting on me (agent is blocked / needs a decision)
-- (none)
-
-## Done (this week)
-- (none)
-```
-
-Save everything to GitHub:
-```bash
-git add -A && git commit -m "Initial second brain" && git push
-```
+Plans, prices, models, and usage allowances can change. Check
+[GitHub's current Copilot plans](https://docs.github.com/en/copilot/get-started/plans)
+instead of choosing only from this summary.
 
 ---
 
-## Part 5 - Copilot instructions (the rules) (about 15 min)
+## Part 3 - Install the GitHub Copilot App
 
-Copilot automatically reads **`~/.copilot/copilot-instructions.md`** at the start of every
-session. This is where you tell it who you are, where your second brain lives and how to
-track work.
+The App supports Windows, macOS, and Linux.
 
-Create the file:
-```bash
-mkdir -p ~/.copilot
-code ~/.copilot/copilot-instructions.md     # or: nano ~/.copilot/copilot-instructions.md
-```
+1. If Git is not already installed, download it from
+   [git-scm.com/downloads](https://git-scm.com/downloads) and use the normal
+   installer. Keep the installer's default choices unless you know you need
+   something different.
+2. Open the
+   [GitHub Copilot App download page](https://github.com/features/ai/github-app).
+3. Download and install the version for your computer.
+4. Open the App and select **Sign in to GitHub**.
+5. Complete the sign-in steps in the browser window that opens.
+6. Choose a theme and finish the short onboarding process.
 
-Paste this, then edit the parts in `<...>`:
+If you use Copilot through an employer, an administrator may need to allow the
+Copilot App. This setting is separate from permission to use Copilot CLI.
 
-```markdown
-# My Copilot Instructions
+### Find your way around
 
-## About me
-- I'm <name>, a beginner-to-intermediate tech person. Explain things simply.
-- Ask before deleting files, spending money, or changing anything outside the current folder.
-- Never put passwords, tokens or keys into files or commits.
+The App's sidebar contains the main places you will use:
 
-## Second brain (long-term memory)
-- My knowledge base is the git repo at ~/second-brain.
-- BEFORE answering "what do I know / what did we do about X", search ~/second-brain first.
-- AFTER finishing something worth remembering (a decision, a fix, a how-to),
-  write or update a note in the right folder using 99-Templates/note.md,
-  then commit and push: `git -C ~/second-brain pull --rebase && git -C ~/second-brain add -A && git -C ~/second-brain commit -m "<msg>" && git -C ~/second-brain push`.
+- **Projects** lists connected repositories and their sessions.
+- **Chats** is for questions and brainstorming that do not need file changes.
+- **My work** collects GitHub issues and pull requests.
+- **Search** searches your connected repositories.
+- **Automations** contains saved recurring tasks. Ignore this until the basic
+  workflow feels comfortable.
 
-## Working on tasks (I run several agents in parallel)
-- Every piece of work has a task id like T-012 and a file ~/second-brain/work/tasks/T-012-<slug>.md.
-- When I say "start task T-012: <description>":
-  1. Create the task file from 99-Templates/task.md (if it doesn't exist).
-  2. Add or update its row in ~/second-brain/work/BOARD.md (Status = doing).
-  3. Write a short plan in the task file and show it to me before doing big changes.
-- While working: append one line to the task's "Log" at each milestone
-  (plan done, change made, tested, blocked, done). Keep BOARD.md "Last update" and "Next step" current.
-- If you need a decision from me, set Status = blocked, add it under "Waiting on me", and stop.
-- Only touch the task file and BOARD.md row for YOUR task, because other agents edit the same repo.
-- Always `git pull --rebase` before committing to ~/second-brain. If the push fails, pull again and retry.
-- When done: fill in "Result / lessons learned", set Status = done, and move the row to "Done".
-
-## Style
-- Short answers, bullet points, copy-pasteable commands.
-```
-
-> Per-project rules: inside any project repo you can also add `.github/copilot-instructions.md`
-> for rules that only apply to that project.
+Labels can move as the App evolves. If your screen differs slightly, use the
+same concepts rather than looking for an exact pixel or position.
 
 ---
 
-## Part 6 - The daily workflow (you are the orchestrator)
+## Part 4 - Create your private second brain
 
-### Starting work
-1. Open a terminal **tab per agent** and name it after the agent (`A1`, `A2`, `A3`).
-   Start with **2 agents at most**, and go up to 3 once you're comfortable.
-2. In each tab, go to the folder the task is about, then start Copilot:
-   ```bash
-   cd ~/projects/my-thing
-   copilot
-   ```
-3. Let the agent reach your second brain, and name the session after the agent:
-   ```
-   /add-dir ~/second-brain
-   /rename A1-T-012
-   ```
-4. Give it the task in one message:
-   > start task T-012: set up automatic backups of my Documents folder to an external drive.
-   > You are agent A1.
-5. Read its plan and approve it (or correct it).
+Your second brain is a private repository of Markdown files. Markdown is plain
+text with simple headings and lists, like the guide you are reading.
 
-### While agents run
-- **`work/BOARD.md` is your control panel.** Open it in VS Code (it refreshes when files
-  change) and you can see what every agent is doing.
-- Look at the **"Waiting on me"** section first. That's where agents ask for your decisions.
-- Switch tabs, answer, and move on.
+The repository gives your notes a durable home. A new session does not
+automatically remember every previous conversation, so important context must
+be written into the repository.
 
-### Rules that stop agents getting in each other's way
-| Rule | Why |
-|------|-----|
-| One task = one agent = one tab | You always know who's doing what |
-| Two agents never work in the **same project folder** at once | They'd overwrite each other's changes |
-| Each agent edits only **its own** task file and board row | No conflicts in the second brain |
-| Agents always `git pull --rebase` before pushing | Keeps everyone's notes in sync |
-| Big or risky changes → agent shows the plan first | You stay in control |
+### 4.1 Create the repository on GitHub
 
-### Pausing and resuming
-- Type `/exit` to quit. Later, run `copilot` again, type `/resume` and pick the session.
-- Even if you lose the session, say **"continue task T-012"**. The agent reads the task
-  file and its log and picks up where it stopped. That's why the log matters.
+1. On [GitHub](https://github.com), select the **+** menu in the upper-right
+   corner.
+2. Select **New repository**.
+3. Name it `second-brain`.
+4. Add a short description such as `My private notes and AI task history`.
+5. Choose **Private**.
+6. Select **Add a README file**.
+7. Select **Create repository**.
 
-### End of day (5 min)
-Ask any agent:
-> Review work/BOARD.md: update stale rows, list what's waiting on me, commit and push.
+> [!WARNING]
+> Keep this repository **private**. Never store passwords, recovery codes,
+> access tokens, API keys, private encryption keys, or payment-card details in
+> it. Use a password manager for secrets.
 
-### Weekly (15 min)
-> Sort 00-Inbox into the right folders, move finished projects to 04-Archive,
-> clear the Done section of BOARD.md into a weekly summary note in 02-Areas/weekly/.
+### 4.2 Connect it to the Copilot App
 
----
+1. Return to the Copilot App.
+2. Next to **Projects** in the sidebar, select **+**.
+3. Under **Add project from**, choose **GitHub repository**.
+4. Find and select your new `second-brain` repository.
+5. Wait while the App prepares the project.
 
-## Part 7 - Useful Copilot CLI commands
+The App downloads the repository and manages its connection to GitHub. You do
+not need to clone it or configure Git yourself.
 
-| Command | What it does |
-|---------|--------------|
-| `/model` | Pick the AI model (use a frontier model for hard tasks, a cheaper one for simple ones) |
-| `/resume` | Continue a previous session |
-| `/rename` | Name the session (e.g. `A1-T-012`) so `/resume` is easy |
-| `/add-dir ~/second-brain` | Let an agent working elsewhere read and write your notes |
-| `/plan` | Make the agent plan before it changes anything |
-| `/clear` | Start fresh in the same window |
-| `/usage` | See how much of your plan you've used |
-| `/help` | All commands |
-| `@file.txt` | Include a file in your message |
-| `!command` | Run a shell command yourself without asking the AI |
+### 4.3 Ask Copilot to create the structure
 
----
+1. Select **+** next to your `second-brain` project.
+2. Choose a **new working tree** as the session location.
+3. Choose **Plan** mode. In this mode, the agent proposes a plan and waits for
+   your approval before changing files.
+4. Paste the following request:
 
-## Part 8 - Safety checklist
+> Set up this repository as a simple PARA second brain for a non-technical
+> user. Create `1-Projects`, `2-Areas`, `3-Resources`, and `4-Archives`.
+> Create `1-Projects/AIC-Tasks`, including a README that explains one
+> self-contained `AIC-<short-task-name>.md` file per task and an
+> `AIC-TEMPLATE.md` with metadata, objective, context, scope, non-goals,
+> acceptance criteria, relevant links, constraints, dependencies, progress,
+> open questions, and handoff/results. Update the root README with a short map
+> of the folders. Add `.github/copilot-instructions.md` telling Copilot to
+> follow this structure, keep task progress current, protect secrets, ask
+> before destructive or costly actions, and use one session per active task.
+> For a ready AIC task, launch its dedicated session in Autopilot with Allow
+> all, work through every acceptance criterion without routine check-ins, and
+> stop only for a real blocker or an action that requires my approval. Keep the
+> wording short and beginner-friendly. Show me the plan before making changes.
 
-- [ ] 2FA is on for GitHub
-- [ ] The second-brain repo is **private**
-- [ ] No passwords, keys or tokens in any note or instruction file (use a password manager)
-- [ ] Read what the agent is about to run before approving anything that deletes, installs or pays for something
-- [ ] Commit and push the second brain at least daily. It's your backup.
+5. Read the plan. If it matches the request, approve it.
+6. Let the agent finish, then select **Changes** above the prompt box.
+7. Read the changed files. Ask questions in the same session if anything is
+   unclear.
+8. When the result looks right, select **Create PR**.
+9. Open the **PR** view, review the summary and changed files, and merge it when
+   you are satisfied.
+
+A pull request makes the setup visible for review before it becomes the main
+version. After the merge, future sessions start from the updated structure.
 
 ---
 
-## Where to go next (optional, once this feels easy)
-- **Skills**: save repeated workflows as `~/.copilot/skills/<name>/SKILL.md` so any agent can reuse them.
-- **MCP servers**: connect Copilot to other tools such as your calendar, email or issue tracker.
-- **Git worktrees**: let two agents work safely on the same project in separate copies.
-- **Automation**: this is what the full AIC system automates. It picks up tasks, starts agents
-  and updates the board for you. Do it by hand first so you understand every piece.
+## Part 5 - Make durable instructions useful
+
+The file `.github/copilot-instructions.md` contains repository-wide
+instructions. Copilot automatically adds these instructions when it works in
+the repository.
+
+Open the file in the App or on GitHub and check that it covers these rules:
+
+- Explain unfamiliar terms in plain language.
+- Follow the folder map in `README.md`.
+- Keep one self-contained `AIC-*.md` document for each task.
+- Update a task's status, dated progress, decisions, blockers, and results.
+- Use a separate session for each active task.
+- Run a ready AIC task in Autopilot with **Allow all** and continue until every
+  acceptance criterion is complete, asking only about real blockers or
+  protected actions.
+- Never store secrets in files or commits.
+- Ask before deleting important files, spending money, publishing private
+  information, or taking another hard-to-reverse action.
+- Review current files before editing and verify the result before declaring a
+  task done.
+- Create a pull request so the user can review completed changes.
+
+These instructions are part of the repository, so they travel with it. They
+are more reliable than hoping a new session remembers an old conversation.
+
+If you want to change a rule, ask a session to edit the instructions and
+explain the proposed change. Review the diff before merging it.
+
+---
+
+## Part 6 - Create a well-defined task
+
+Do not begin a substantial job with only a vague one-line request. First create
+a **task brief**: a file that gives a new session all the context it needs.
+
+### 6.1 Start in a chat
+
+Use **Chats** when you need help shaping an idea but do not yet want file
+changes. For example:
+
+> Help me define a small task to organize my household warranty information.
+> Ask what is missing and suggest clear completion checks. Do not change files
+> yet.
+
+Chats do not create a task branch or workspace. When the idea is clear, start a
+project session to record it.
+
+### 6.2 Create the task brief
+
+1. Select **+** next to the `second-brain` project.
+2. Choose a **new working tree**.
+3. Choose **Plan** or **Interactive** mode.
+4. Give the session a request like this:
+
+> Start a new AIC task to organize my household warranty information. The
+> result should be an index of products, purchase dates, warranty end dates,
+> receipt locations, and support links. Do not copy passwords, card numbers,
+> or full account details into the repository. Create the task brief only,
+> make it self-contained, and let me review it before starting the work.
+
+The agent should create a file such as:
+
+`1-Projects/AIC-Tasks/AIC-organize-warranties.md`
+
+Before allowing the work to start, check that the brief says:
+
+- what outcome you want;
+- what is included and excluded;
+- how you will know it is complete;
+- which files, links, or source material matter;
+- what the agent must not expose or change;
+- which questions or dependencies could block progress.
+
+Use `Unknown` or an open question instead of letting the agent invent missing
+facts.
+
+### 6.3 Start the dedicated work session
+
+After the task brief is saved, use one dedicated session to execute it. You can
+ask the setup session to start that session, or start one yourself with **+**
+next to the project.
+
+Use this request, replacing the file name:
+
+> Execute the task in
+> `1-Projects/AIC-Tasks/AIC-organize-warranties.md`. Treat that document as the
+> source of truth. Work autonomously, keep its status and dated progress
+> current, record decisions and blockers, complete its handoff/results section,
+> verify every acceptance criterion, and create a pull request.
+
+Start with **Plan** mode for unfamiliar, broad, or risky work. Use
+**Interactive** when you expect to make decisions together. Use **Autopilot**
+only when the task is clear, bounded, and safe enough for the agent to proceed
+without waiting at each step.
+
+### 6.4 Default AIC mode: finish with minimal interaction
+
+Once you have reviewed a ready task brief, the normal AIC workflow is designed
+to need as little attention as possible:
+
+1. Start one dedicated session in a **new working tree**.
+2. Select **Autopilot** so the agent can keep working through multiple steps.
+3. Select **Allow all** for that session when the App asks how agent tool
+   approvals should work.
+4. Prefer a cloud sandbox, or enable local sandboxing, when the task does not
+   need unrestricted access to your computer.
+5. Tell the agent to continue until every acceptance criterion is verified,
+   the task document is complete, and a pull request is created.
+
+**Allow all** removes routine approval prompts; it does not remove your safety
+rules. The agent must still stop for missing information that it cannot infer,
+secrets, purchases, publishing private information, destructive changes
+outside the task, or another action that the task brief reserves for you.
+
+Use this standard request:
+
+> Run this ready AIC task in Autopilot with minimal operator interaction.
+> Continue until all acceptance criteria are verified and the pull request is
+> ready. Make reasonable low-risk decisions yourself and record them in the
+> task document. Contact me only for a genuine blocker or an explicitly
+> protected action.
+
+Use **Plan** or **Interactive** instead when the task is still vague, has a wide
+or uncertain impact, handles sensitive material, or could cause an expensive
+or hard-to-reverse result.
+
+---
+
+## Part 7 - Run tasks in parallel safely
+
+Each App session can use an isolated working tree and its own branch. This lets
+several agents work at the same time without writing over one another.
+
+Start with two parallel sessions until the pattern feels familiar.
+
+Follow these rules:
+
+| Rule | Why it matters |
+| --- | --- |
+| One task brief has one active session | Two agents updating the same task file can contradict each other. |
+| Use a new working tree for each task | The App isolates each task's files and branch. |
+| Keep each task focused | Smaller changes are easier to review and merge safely. |
+| Record progress in the task document | Another session can resume from the repository, not from memory. |
+| Merge completed PRs before starting dependent work | A new session otherwise starts without those changes. |
+| Review two tasks that edit the same file carefully | Separate workspaces prevent overwrites while working, but the changes can still conflict when merged. |
+
+Your control panel is split between two App views:
+
+- Under **Projects**, select a session to read its conversation and see whether
+  it is active or waiting for you.
+- In **My work**, review pull requests, checks, review comments, and completed
+  work.
+
+Do not use one session for several unrelated tasks. Start a new session when
+you change goals so its context stays focused.
+
+---
+
+## Part 8 - Review, steer, pause, and resume
+
+### While an agent works
+
+1. Select its session under **Projects**.
+2. Read recent messages and respond to requests for a decision.
+3. If the task is drifting, give a direct correction in the same session.
+4. Select **Changes** to inspect additions, removals, and edits.
+5. Ask the agent to explain any change you do not understand.
+
+Red usually means removed text; green usually means added text. A large diff
+is not automatically bad, but it deserves more careful review.
+
+### Pause and resume
+
+You can switch to another session or close the App without turning the task
+into a new conversation. To continue later, reopen the App and select the
+existing session under its project.
+
+If you intentionally start a replacement session, point it to the task brief:
+
+> Continue the task in
+> `1-Projects/AIC-Tasks/AIC-organize-warranties.md`. Read its progress,
+> decisions, blockers, and acceptance criteria before doing anything.
+
+The written progress log is the fallback when conversation context is missing.
+
+Use the App's session management settings to archive finished sessions. Delete
+a session only when you are sure you no longer need its working files or chat
+history.
+
+### Finish safely
+
+Before merging a pull request:
+
+1. Confirm the task brief's acceptance criteria are checked truthfully.
+2. Read the handoff/results section.
+3. Open **Changes** or the PR's **Files changed** view.
+4. Look for unexpected deletions, private information, or unrelated edits.
+5. Check any validation results shown in the PR.
+6. Ask for corrections in the session if needed.
+7. Merge only when you understand and accept the result.
+
+After merging, the repository's main version contains the durable result. A
+PR that is only created but not merged is still proposed work.
+
+---
+
+## Part 9 - A simple routine
+
+### At the start of a work period
+
+1. Open the Copilot App.
+2. Look under **Projects** for sessions waiting on you.
+3. Open **My work** and check active pull requests.
+4. Resume an existing task before creating a duplicate session.
+5. Create a task brief before starting new substantial work.
+
+### At the end of a work period
+
+1. Check each active task's status and latest dated progress.
+2. Answer or record blockers.
+3. Review completed changes and PRs.
+4. Merge accepted work so new sessions can see it.
+5. Leave unfinished work in its existing session with a clear next step.
+
+### Once a week
+
+Ask a session in the second-brain project:
+
+> Review the repository for stale active tasks, missing progress updates,
+> unresolved blockers, and completed tasks that are ready to archive. Propose
+> a short cleanup plan. Do not delete anything without my approval.
+
+Move inactive, completed material to `4-Archives` rather than deleting useful
+history.
+
+---
+
+## Part 10 - Safety checklist
+
+- [ ] GitHub 2FA is enabled and recovery codes are stored securely.
+- [ ] The second-brain repository is **private**.
+- [ ] Passwords, tokens, keys, recovery codes, and payment details stay in a
+      password manager, not the repository.
+- [ ] Risky work starts in **Plan** or **Interactive** mode.
+- [ ] Local or cloud sandboxing is used when appropriate and available.
+- [ ] Each active task has one task brief and one dedicated session.
+- [ ] Ready, bounded AIC tasks use **Autopilot** and **Allow all** for minimal
+      routine interaction.
+- [ ] Important decisions and progress are written to files, not left only in
+      chat history.
+- [ ] Every PR is reviewed for unexpected or destructive changes.
+- [ ] Completed PRs are merged before dependent tasks begin.
+- [ ] Deletion, publication, purchases, and other hard-to-reverse actions
+      require explicit approval.
+
+---
+
+## Official references
+
+These GitHub pages describe the current interface and were used to check this
+guide:
+
+- [Getting started with the GitHub Copilot App](https://docs.github.com/en/copilot/get-started/quickstart-copilot-app)
+- [About the GitHub Copilot App](https://docs.github.com/en/copilot/concepts/agents/github-copilot-app)
+- [Working with agent sessions in the GitHub Copilot App](https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions)
+- [Managing issues and pull requests in the App](https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests)
+- [Adding repository custom instructions](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions)
+- [Creating a repository on GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository)
+- [Configuring two-factor authentication](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication)
+
+The App changes over time. Prefer these official pages when a button name or
+feature differs from what you see.
