@@ -27,8 +27,10 @@ parallel task:
    read it. Do not combine unrelated task briefs in the same commit.
 7. Launch one dedicated Copilot project session for that AIC document when
    session creation is available. Base it on the commit containing the task
-   brief. Do not perform the task in the orchestration chat unless session
-   creation is unavailable or the user explicitly asks.
+   brief. Run it in Autopilot with allow-all permissions by default so it can
+   finish with minimal operator interaction. Do not perform the task in the
+   orchestration chat unless session creation is unavailable or the user
+   explicitly asks.
 8. Give the dedicated session this instruction, substituting the actual path:
 
    ```text
@@ -51,6 +53,11 @@ run in parallel when their dependencies and edited files do not conflict.
 When a chat is assigned an existing `AIC-*.md` document:
 
 - Treat the document as the source of truth and remain within its scope.
+- Work autonomously through completion with allow-all permissions by default.
+  Make reasonable low-risk decisions without routine check-ins. Stop only for
+  a genuine blocker or an action involving secrets, spending, publication of
+  private information, destructive changes outside scope, or another decision
+  explicitly reserved for the user.
 - Update **Status / progress** at meaningful checkpoints and whenever blocked.
 - Record durable decisions and answers to open questions in the document.
 - Before finishing, verify the acceptance criteria and complete
