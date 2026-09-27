@@ -10,6 +10,31 @@ Use this repository as a template to create your own ready-made copy with a
 Windows computer and GitHub account. You do not need to know terminal commands
 or install Copilot CLI, Node.js, or GitHub CLI.
 
+## The idea in everyday language
+
+Think of this system as a **shared notebook plus a small team of assistants**:
+
+- The **second brain** is the notebook. It keeps facts, plans, useful links,
+  decisions, and finished work in organized folders.
+- An **AI agent** is an assistant. You give it one clear job, such as
+  researching a purchase, organizing records, writing a plan, or improving a
+  document.
+- An **AIC task file** is the written job description. It tells the assistant
+  what to do, what not to do, and how to know when the job is finished.
+- The **Copilot App** is the control room. It lets you start assistants, watch
+  their progress, answer questions, and review results in windows instead of a
+  command line.
+
+You remain in control. Agents can do routine work independently, but their
+important changes are shown to you before they become part of the main second
+brain. Because useful results are saved as files, a future agent can read what
+happened and continue without you repeating the whole story.
+
+This setup is useful for personal administration, research, planning,
+documentation, and other file-based work. It does not give an agent automatic
+access to your email, bank, passwords, or computer; access depends on the
+project and tools you deliberately connect.
+
 > [!IMPORTANT]
 > The second brain is not automatic chat memory. Agents remember important
 > information by writing it into repository files and merging those changes
