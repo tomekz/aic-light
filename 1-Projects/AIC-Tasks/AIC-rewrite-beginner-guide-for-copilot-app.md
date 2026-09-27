@@ -138,6 +138,8 @@ needed.
   while retaining explicit safety stop conditions.
 - 2026-09-27 - Consolidated the second-brain explanation and complete Windows
   setup guide into the root README, removing the duplicate resource page.
+- 2026-09-27 - Simplified the README into a shorter single-page explanation
+  and replication guide while preserving setup, workflow, and safety details.
 
 ## Open questions
 
