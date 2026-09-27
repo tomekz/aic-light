@@ -7,7 +7,15 @@ guidance in the root `README.md`.
 
 When the user asks to "start a new AIC task", "create an AIC task", or uses
 equivalent wording, treat it as a request to create and launch a self-contained
-parallel task:
+parallel task. **AIC is a required lifecycle, not merely a label or a suggested
+file location. Do not skip any lifecycle step even when the requested output
+itself is simple.**
+
+If one request contains multiple independent AIC tasks, split it into one
+`AIC-*.md` document and one dedicated session per task. Create and commit each
+brief separately. Do not execute any of those tasks in the orchestration chat.
+
+For each task:
 
 1. Read `1-Projects/AIC-Tasks/README.md` and
    `1-Projects/AIC-Tasks/AIC-TEMPLATE.md`.
@@ -44,6 +52,10 @@ parallel task:
 9. Tell the user the task document path and the dedicated session that was
    started. If a session could not be launched, state that plainly and leave
    the committed task document ready to run.
+10. Monitor the dedicated session to completion. Before reporting the task as
+    finished, verify that its task document is updated, its scoped changes are
+    committed, and its pull request exists. If any item is missing, send the
+    session a correction and keep the task open.
 
 Use one active chat per `AIC-*.md` document. Different AIC task documents may
 run in parallel when their dependencies and edited files do not conflict.
@@ -52,6 +64,8 @@ run in parallel when their dependencies and edited files do not conflict.
 
 When a chat is assigned an existing `AIC-*.md` document:
 
+- Before changing another file, open the assigned task document, set its
+  status to `in-progress`, and add a dated progress entry.
 - Treat the document as the source of truth and remain within its scope.
 - Work autonomously through completion with allow-all permissions by default.
   Make reasonable low-risk decisions without routine check-ins. Stop only for
@@ -66,3 +80,21 @@ When a chat is assigned an existing `AIC-*.md` document:
 - Commit the task document updates together with the corresponding work and
   create a pull request unless the user explicitly requests another delivery
   method.
+
+### Mandatory completion gate
+
+Do not say that an AIC task is complete and do not stop after creating only the
+requested output. Completion requires all of the following:
+
+1. The assigned `AIC-*.md` file exists on the task branch.
+2. Every acceptance criterion is checked and was actually verified.
+3. Status is `done`, dated progress is current, and **Handoff / results** is
+   complete.
+4. All scoped output and task-record changes are committed.
+5. The branch is published and a pull request has been created.
+6. The user or orchestration session receives the task path, validation result,
+   and pull-request reference.
+
+If committing, publishing, or pull-request creation fails, diagnose and retry.
+If it still cannot be completed, leave the task `blocked`, record the exact
+blocker in the task document, and report that the task is not complete.

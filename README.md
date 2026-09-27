@@ -146,7 +146,8 @@ Your second brain is now ready.
 
 ### Start a task
 
-In a chat or project session, say:
+Start from a session in your second-brain project so Copilot can create files
+and launch dedicated sessions. Say:
 
 > Start a new AIC task to organize my household warranty information. Include
 > product names, purchase dates, warranty end dates, receipt locations, and
@@ -159,6 +160,19 @@ Copilot should:
 2. Fill every section without inventing missing facts.
 3. Commit the task brief so another session can read it.
 4. Launch one dedicated session for that task.
+5. Monitor the task session and verify that it updates the task file, commits
+   its work, and creates a PR.
+
+Creating only the requested note or checklist is **not** a completed AIC task.
+The task record, verified acceptance criteria, commit, and PR are mandatory.
+
+For two parallel tasks, you can say:
+
+> Start two separate AIC tasks: plan a two-day family trip to Kraków with a
+> EUR 300 budget, and create a household subscription-review checklist. Create
+> and commit one AIC task brief for each, launch one dedicated Autopilot session
+> per task, and verify that each session updates its task record, commits its
+> changes, and creates a pull request before reporting completion.
 
 ### Let a ready task run
 
@@ -218,6 +232,12 @@ Before merging its PR:
 6. Merge only when you accept the result.
 
 After the merge, the task and its results are part of the durable second brain.
+
+If an agent reports success without an AIC task file, commit, or PR, reply:
+
+> This is an AIC task and is not complete. Create or update its `AIC-*.md`
+> record, verify every acceptance criterion, commit all scoped changes, and
+> create the pull request. Do not stop after creating only the output file.
 
 ---
 

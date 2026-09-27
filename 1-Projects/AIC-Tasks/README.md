@@ -37,3 +37,20 @@ For each ready `AIC-*.md` task document:
    active.
 
 Tasks may run in parallel when their **Dependencies** sections do not conflict.
+
+## Required completion contract
+
+An AIC task is not finished when its output file is merely created. Its agent
+must also:
+
+1. Keep the task document on the same branch as the output.
+2. Mark verified acceptance criteria and complete the dated progress and
+   handoff sections.
+3. Commit all scoped changes.
+4. Publish the branch and create a pull request.
+5. Report the task path, validation result, and pull request.
+
+If one prompt requests several independent AIC tasks, create one task document,
+commit, and dedicated session for each. The coordinating session must verify
+this completion contract for every child session instead of accepting a
+success message at face value.
