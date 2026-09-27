@@ -144,6 +144,8 @@ needed.
   setup path to create a ready private copy with **Use this template**.
 - 2026-09-27 - Added a non-technical introduction explaining the system as a
   shared notebook plus a team of task-focused assistants.
+- 2026-09-27 - Added mandatory AIC lifecycle and completion gates after a demo
+  agent created output without a task record, commit, or pull request.
 
 ## Open questions
 
