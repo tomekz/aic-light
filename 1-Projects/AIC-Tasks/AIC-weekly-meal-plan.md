@@ -2,7 +2,7 @@
 
 ## Task metadata
 
-- **Status:** in-progress
+- **Status:** done
 - **Owner:** Copilot session `Weekly meal plan`
 - **Created:** 2026-09-27
 - **Last updated:** 2026-09-27
@@ -73,9 +73,9 @@ rather than invent them, and remain usable for different households and weeks.
       and is labeled as adaptable rather than prescriptive.
 - [x] Markdown structure and repository whitespace validation complete without
       errors.
-- [ ] This task record is updated with verified criteria, dated progress,
+- [x] This task record is updated with verified criteria, dated progress,
       final status, and handoff details.
-- [ ] All scoped changes are committed, published, and proposed in a pull
+- [x] All scoped changes are committed, published, and proposed in a pull
       request.
 
 ## Relevant files / links
@@ -120,6 +120,8 @@ None.
   family-of-four example, and end-of-week review.
 - 2026-09-27 - Verified all content criteria with an automated structure check
   and confirmed repository whitespace with `git diff --check`.
+- 2026-09-27 - Committed and published the scoped changes, opened pull request
+  #12, completed the handoff, and set the task status to `done`.
 
 ## Open questions
 
@@ -131,11 +133,12 @@ None.
 
 Complete this section before closing the task:
 
-- **Outcome:** The reusable meal-planning resource is complete and validated;
-  delivery steps are in progress.
+- **Outcome:** Delivered a reusable weekly meal-planning template for a
+  household of four.
 - **Changes:** Created `2-Areas/Household/weekly-meal-plan.md` and maintained
-  this AIC task record.
+  this AIC task record; published the work for review in pull request #12.
 - **Validation:** An automated content check confirmed all required sections,
   both seven-day tables, and every weekday row. `git diff --check` passed.
-- **Remaining work:** Commit the changes, publish the branch, create the pull
-  request, and record the delivery reference.
+- **Remaining work:** Review and merge pull request #12. After acceptance, this
+  completed task record may be moved to `4-Archives/Projects/AIC-Tasks/`
+  according to repository practice.
